@@ -1,12 +1,11 @@
 {
-    "name": "optimus/laravel-boilerplate",
+    "name": "optimus/onion",
     "autoload": {
         "psr-4": {
-            "Optimus\\LaravelBoilerplate\\": "src/"
+            "Optimus\\Onion\\": "src/"
         }
     },
     "require": {
-        "laravel/framework": "~5.1"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
