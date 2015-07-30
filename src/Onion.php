@@ -15,6 +15,11 @@ class Onion {
         $this->layers = $layers;
     }
 
+    /**
+     * Add layer(s) or Onion
+     * @param  mixed $layers
+     * @return Onion
+     */
     public function layer($layers)
     {
         if ($layers instanceof Onion) {
@@ -32,6 +37,13 @@ class Onion {
         return new static(array_merge($this->layers, $layers));
     }
 
+    /**
+     * Run middleware around core function and pass an
+     * object through it
+     * @param  mixed  $object
+     * @param  Closure $core
+     * @return mixed         
+     */
     public function peel($object, Closure $core)
     {
         $coreFunction = $this->createCoreFunction($core);
@@ -54,8 +66,21 @@ class Onion {
         return $completeOnion($object);
     }
 
-    // The inner function of the onion.
-    // This function will be wrapped on layers
+    /**
+     * Get the layers of this onion, can be used to merge with another onion
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->layers;
+    }
+
+    /**
+     * The inner function of the onion.
+     * This function will be wrapped on layers
+     * @param  Closure $core the core function
+     * @return Closure
+     */
     private function createCoreFunction(Closure $core)
     {
         return function($object) use($core) {
@@ -63,18 +88,18 @@ class Onion {
         };
     }
 
-    // Get an onion layer function.
-    // This function will get the object from a previous layer and pass it inwards
+    /**
+     * Get an onion layer function.
+     * This function will get the object from a previous layer and pass it inwards
+     * @param  LayerInterface $nextLayer
+     * @param  LayerInterface $layer
+     * @return Closure
+     */
     private function createLayer($nextLayer, $layer)
     {
         return function($object) use($nextLayer, $layer){
             return call_user_func_array([$layer, 'peel'], [$object, $nextLayer]);
         };
-    }
-
-    public function toArray()
-    {
-        return $this->layers;
     }
 
 }
