@@ -1,6 +1,6 @@
 # Onion
 
-[![Build Status](https://travis-ci.org/esbenp/onion.svg)](https://travis-ci.org/esbenp/onion) [![Coverage Status](https://coveralls.io/repos/esbenp/onion/badge.svg?branch=master)](https://coveralls.io/r/esbenp/onion?branch=master)
+[![Build Status](https://travis-ci.org/esbenp/onion.svg)](https://travis-ci.org/esbenp/onion) [![Coverage Status](https://coveralls.io/repos/esbenp/onion/badge.svg?branch=master&service=github)](https://coveralls.io/github/esbenp/onion?branch=master)
 
 A standalone middleware library without dependencies inspired by middleware in Laravel (Illuminate/Pipeline)
 
