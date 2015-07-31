@@ -2,7 +2,10 @@
 
 [![Build Status](https://travis-ci.org/esbenp/onion.svg)](https://travis-ci.org/esbenp/onion) [![Coverage Status](https://coveralls.io/repos/esbenp/onion/badge.svg?branch=master&service=github)](https://coveralls.io/github/esbenp/onion?branch=master)
 
-A standalone middleware library without dependencies inspired by middleware in Laravel (Illuminate/Pipeline)
+A standalone middleware library without dependencies inspired by middleware in Laravel (Illuminate/Pipeline).
+
+I have written a small blog post about the library and how to use it:
+[Implementing before/after middleware in PHP](http://esbenp.github.io/2015/07/31/implementing-before-after-middleware/)
 
 ## Installation
 
