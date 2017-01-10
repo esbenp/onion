@@ -10,7 +10,7 @@ I have written a small blog post about the library and how to use it:
 ## Installation
 
 ```bash
-composer require optimus/onion 0.1.*
+composer require optimus/onion ~1.0
 ```
 
 ## Usage
