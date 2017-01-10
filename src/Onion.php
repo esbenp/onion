@@ -84,7 +84,7 @@ class Onion {
     private function createCoreFunction(Closure $core)
     {
         return function($object) use($core) {
-            return call_user_func($core, $object);
+            return $core($object);
         };
     }
 
@@ -98,7 +98,7 @@ class Onion {
     private function createLayer($nextLayer, $layer)
     {
         return function($object) use($nextLayer, $layer){
-            return call_user_func_array([$layer, 'peel'], [$object, $nextLayer]);
+            return $layer->peel($object, $nextLayer);
         };
     }
 
