@@ -60,6 +60,43 @@ class Onion {
         $completeOnion = array_reduce($layers, function($nextLayer, $layer){
             return $this->createLayer($nextLayer, $layer);
         }, $coreFunction);
+        
+        /// It is a interesting model. It looks like a recursion, to better 
+        /// understand the mechanism, i created a model. So, after making a
+        /// array_reduce we have, a something what looks like telescope.
+        /// The coreFunction is carryed to te top of the telescope.
+        /// Looks closer:
+        /// Lets say that fn($nextLayer, $layer) = function($nextLayer, $layer){
+        ///    return $this->createLayer($nextLayer, $layer);
+        /// }
+        /// In the first step we have:
+        /// fn($coreFunction, $layer[3]), then
+        /// fn(fn($coreFunction, $layer[3]), $layer[2]), then
+        /// fn(fn(fn($coreFunction, $layer[3]), $layer[2]), $layer[1]), then
+        /// fn(fn(fn(fn($coreFunction, $layer[3]), $layer[2]), $layer[1]), $layer[0])
+        /// so it is a function depending on the one agument. This argument is called $object.
+        /// fn(fn(fn(fn($coreFunction, $layer[3]), $layer[2]), $layer[1]), $layer[0])($object);
+        /// Now, we have to consider what is a fn function.
+        /// $layer[0]->peel($object, fn(fn(fn($coreFunction, $layer[3]), $layer[2]), $layer[1]))
+        /// Then we have depending from class:
+        /// fn(fn(fn($coreFunction, $layer[3]), $layer[2]), $layer[1])($object);
+        /// $object->runs[] = 'after';
+        /// Then we have:
+        /// $object->runs[] = 'before';
+        /// fn($coreFunction, $layer[3]), $layer[2])
+        /// $object->runs[] = 'after';
+        /// Then we have
+        /// $object->runs[] = 'before';
+        /// fn($coreFunction, $layer[3])
+        /// $object->runs[] = 'after';
+        /// $object->runs[] = 'after';
+        /// Then we have
+        /// $object->runs[] = 'before'
+        /// $object->runs[] = 'before';
+        /// $coreFunction($output);
+        /// $object->runs[] = 'after';
+        /// $object->runs[] = 'after';
+        
 
         // We now have the complete onion and can start passing the object
         // down through the layers.
